@@ -17,7 +17,9 @@
 # -And some more. Read on.
 
 # Edit the squid version to be applicable
-SQUID_SRCVER="2.6.STABLE18"
+# SQUID_SRCVER="2.6.STABLE18"
+# SQUID_SRCVER="2.6.STABLE18"
+SQUID_SRCVER="3.5.22"
 CWD=`pwd`
 
 if [ "$UID" -ne "0" ]; then
@@ -59,8 +61,9 @@ if [ -d /etc/squid ]; then
 fi
 
 # Squid
-rm -rf squid-${SQUID_SRCVER}
+rm -rf squid-${SQUID_SRCVER} squid-${SQUID_SRCVER}.tar.bz2
 echo "  Unpacking Squid"
+wget http://www.squid-cache.org/Versions/v3/3.5/squid-${SQUID_SRCVER}.tar.bz2
 tar jxf squid-${SQUID_SRCVER}.tar.bz2 || exit 1
 
 chown -R root:root squid-${SQUID_SRCVER} || exit 1
@@ -88,6 +91,7 @@ echo "  Running ./configure with a whole lot of options..."
   --enable-cache-digests \
   --enable-poll \
   --enable-ssl \
+  --enable-auth \
   --enable-delay-pools \
   --enable-linux-netfilter \
   --enable-truncate \
